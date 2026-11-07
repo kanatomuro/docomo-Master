@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DOCOMO MASTER</title>
+<style>
+:root{--bg:#f5f6f8;--card:#fff;--tx:#1a1d23;--sub:#6b7280;--ac:#d6001c;--ok:#16a34a;--ng:#dc2626;--bd:#e5e7eb;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111317;--card:#1c1f26;--tx:#f1f3f6;--sub:#9aa3b2;--bd:#2c303a;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#111317;--card:#1c1f26;--tx:#f1f3f6;--sub:#9aa3b2;--bd:#2c303a;color-scheme:dark}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:var(--bg);color:var(--tx);font-family:-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif;line-height:1.6}
+main{max-width:560px;margin:0 auto;padding:16px 16px 88px}
+h1{font-size:22px;margin:4px 0 0;letter-spacing:.04em}h1 span{color:var(--ac)}
+.sub{color:var(--sub);font-size:13px;margin:2px 0 14px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:18px}
+.st{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:10px;text-align:center}
+.st b{display:block;font-size:20px}.st small{color:var(--sub);font-size:11px}
+h2{font-size:14px;color:var(--sub);margin:18px 0 8px}
+.cat{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px;margin-bottom:8px;font:inherit;color:inherit;cursor:pointer}
+.cat:active{transform:scale(.98)}.cat .ic{font-size:26px}.cat b{display:block;font-size:15px}.cat small{color:var(--sub);font-size:12px}
+.box{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px;font-size:13px}
+.box li{margin:4px 0}
+.q{font-size:17px;font-weight:600;margin:10px 0 14px}
+.bar{height:6px;background:var(--bd);border-radius:3px;overflow:hidden}.bar i{display:block;height:100%;background:var(--ac)}
+.ch{display:block;width:100%;text-align:left;background:var(--card);border:2px solid var(--bd);border-radius:12px;padding:13px;margin-bottom:8px;font:inherit;color:inherit;cursor:pointer}
+.ch.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 14%,var(--card))}
+.ch.ng{border-color:var(--ng);background:color-mix(in srgb,var(--ng) 14%,var(--card))}
+.ex{background:var(--card);border-left:4px solid var(--ac);border-radius:8px;padding:12px;font-size:14px;margin:12px 0}
+.btn{display:block;width:100%;background:var(--ac);color:#fff;border:0;border-radius:12px;padding:14px;font:inherit;font-weight:700;cursor:pointer}
+.btn.g{background:var(--card);color:var(--tx);border:1px solid var(--bd);margin-top:8px}
+.big{font-size:44px;font-weight:800;text-align:center;margin:10px 0 0}
+a.lk{display:block;background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:14px;margin-bottom:8px;color:var(--tx);text-decoration:none}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:var(--card);border-top:1px solid var(--bd);padding-bottom:env(safe-area-inset-bottom,0px)}
+nav button{flex:1;background:none;border:0;padding:12px 0;font:inherit;font-size:12px;color:var(--sub);cursor:pointer}
+nav button.on{color:var(--ac);font-weight:700}
+.note{color:var(--sub);font-size:12px;margin-top:14px}
+</style>
+</head>
+<body>
+<main id="app"></main>
+<nav><button data-v="home">⌂ ホーム</button><button data-v="quiz">▤ クイズ</button><button data-v="info">◎ 公式情報</button></nav>
+<script>
+var CATS=[
+{id:"plan",ic:"📱",n:"料金プラン",d:"ドコモ・ahamo・割引"},
+{id:"hikari",ic:"🌐",n:"ドコモ光・home 5G",d:"回線・工事・セット割"},
+{id:"option",ic:"🛡️",n:"サービス・オプション",d:"補償・セキュリティなど"},
+{id:"sales",ic:"🎧",n:"営業・提案実践",d:"ヒアリング・比較・切り返し"},
+{id:"win",ic:"🔁",n:"新規・他社奪還",d:"競合比較・特典の考え方"},
+{id:"all",ic:"⚡",n:"総合テスト",d:"全カテゴリーから出題"}];
+var Q=[
+["plan","料金プランを案内する前に、最初に確認すべきことは?",["お客様の利用状況(データ量・通話・家族構成・光回線の有無)","一番高いプランの月額","他社プランの欠点","契約期間の長さだけ"],0,"プランは利用状況に合わせて選ぶものです。先にヒアリングしないと、合わない提案になります。"],
+["plan","ahamoの特徴として正しいものは?",["主にオンラインで申し込み・手続きするプラン","店頭でのみ申し込めるプラン","法人専用のプラン","必ずドコモ光とセットで契約するプラン"],0,"ahamoはオンライン中心のプランです。手続き方法の違いも案内のポイントになります。"],
+["plan","料金や割引を案内するときの適切な姿勢は?",["適用条件や期間も伝え、最新の公式情報で確認する","お得な部分だけを強調する","以前の案内をそのまま使う","条件は聞かれたら答える"],0,"料金や割引は変更されます。条件込みで案内し、公式情報で最新を確認します。"],
+["hikari","フレッツ光からドコモ光へ切り替える手続きは?",["転用","事業者変更","タイプC","新規申込"],0,"フレッツ光から光コラボへの切替が「転用」です。NTT東西から転用承諾番号を取得します。"],
+["hikari","他の光コラボ事業者からドコモ光へ切り替える手続きは?",["事業者変更","転用","撤去","機種変更"],0,"光コラボ同士の乗り換えが「事業者変更」です。現在の事業者から事業者変更承諾番号を取得します。"],
+["hikari","転用・事業者変更で、申し込み前にお客様が取得するものは?",["承諾番号","暗証番号","工事完了書","dポイントカード"],0,"転用・事業者変更には承諾番号が必要です。有効期限もあるため、切替日とあわせて確認します。"],
+["hikari","ケーブルテレビ事業者の回線設備を使うタイプは?",["タイプC","タイプA","タイプB","タイプD"],0,"ドコモ光のタイプCはケーブルテレビ事業者の回線を使います。提供地域や事業者の条件を確認します。"],
+["hikari","他社の独自回線から切り替える場合、特に確認すべきことは?",["撤去工事の要否・費用と、現在の解約費用","お客様の血液型","スマホの色","テレビの画面サイズ"],0,"独自回線は工事や撤去が絡むことがあります。費用と条件を事前に確認します。"],
+["option","補償サービスを案内する主な目的は?",["故障・紛失時のお客様の負担を軽くする","月額を高くするため","他社に乗り換えさせないため","端末を早く買い替えさせるため"],0,"万一のときの負担を減らすのが目的です。お客様の使い方に合うかで提案します。"],
+["option","セキュリティ系オプションを提案する最適なタイミングは?",["ヒアリングで不安(詐欺・子どものスマホなど)が出たとき","最初のあいさつ直後","お客様が断った直後に繰り返す","契約の最後に必ず全員へ"],0,"お客様の不安や課題に結びつけると、売り込みではなく解決策として伝わります。"],
+["option","オプションを案内するとき、必ず伝えるべきことは?",["内容・月額・加入条件・無料期間後の料金","メリットだけ","他社オプションの欠点","加入は必須であること"],0,"無料期間後の料金など、後で困る点まで伝えるのが信頼につながります。"],
+["sales","ヒアリングの一番の目的は?",["お客様の課題と優先事項を把握すること","商品名を説明すること","すぐにクロージングすること","他社の情報を聞き出すこと"],0,"課題と優先事項が分かって初めて、合った提案ができます。"],
+["sales","「今のままでいい」と言われたとき、最初の対応は?",["理由を聞き、現状の不満や費用を確認する","すぐに別のプランを勧める","現状を否定する","電話を終える"],0,"否定せず、理由を聞いて現状を理解するところから始めます。"],
+["sales","比較提案で大切なのは?",["月額だけでなく、解約金・特典・工事費残債まで含めた総額で比較する","月額の安さだけを比べる","特典の金額だけを比べる","口頭で大まかに伝える"],0,"月額だけでは判断を誤ります。総額と条件で比べます。"],
+["sales","お客様に断られたときの切り返しの基本は?",["共感して理由を確認し、課題に合う形で再提案する","同じ説明を繰り返す","強い口調で押す","すぐ諦める"],0,"断りの理由に共感し、そこに合わせて提案し直します。"],
+["win","他社から乗り換えを検討するお客様に、まず確認すべきことは?",["現在の契約期間・解約金・残債の有無","お客様の年齢だけ","最新機種が欲しいか","自宅の間取り"],0,"解約金や残債で、乗り換えの総額が変わります。"],
+["win","乗り換え特典を案内するときに正しいのは?",["対象条件・受取時期・申請手続きまで説明する","金額だけ伝える","申請は不要と伝える","条件は後で伝える"],0,"特典は条件と手続きが重要です。受け取れないトラブルを防ぎます。"],
+["win","競合比較で避けるべきことは?",["根拠のない断定や他社の悪口","事実に基づく比較","お客様の優先順位の確認","総額の比較"],0,"根拠のない断定や批判は信頼を失います。事実と条件で比べます。"]
+];
+var KEY="docomoMasterV1",S={n:0,c:0};
+try{var r=localStorage.getItem(KEY);if(r)S=JSON.parse(r)}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function rank(){var a=S.n,p=a?S.c/a:0;return a>=60&&p>=.7?"EXPERT":a>=30&&p>=.6?"ADVANCED":a>=10?"INTERMEDIATE":"BEGINNER"}
+var $=function(s){return document.querySelector(s)},app=$("#app"),st={list:[],i:0,c:0,sel:null};
+function esc(s){return String(s).replace(/[&<>]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;"}[c]})}
+function nav(v){document.querySelectorAll("nav button").forEach(function(b){b.className=b.dataset.v===v?"on":""})}
+function shuf(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
+function home(){nav("home");var p=S.n?Math.round(S.c/S.n*100)+"%":"—";
+app.innerHTML='<h1>DOCOMO <span>MASTER</span></h1><p class="sub">知識を、現場で使える力に。</p>'+
+'<div class="stats"><div class="st"><b>'+S.n+'</b><small>回答数</small></div><div class="st"><b>'+p+'</b><small>正答率</small></div><div class="st"><b style="font-size:13px;padding:4px 0">'+rank()+'</b><small>ランク</small></div></div>'+
+'<h2>学習カテゴリー</h2>'+CATS.map(function(c){return'<button class="cat" data-c="'+c.id+'"><span class="ic">'+c.ic+'</span><span><b>'+c.n+'</b><small>'+c.d+'</small></span></button>'}).join("")+
+'<h2>ドコモ光の契約パターン</h2><div class="box"><ul style="margin:0;padding-left:18px"><li><b>事業者変更</b>:光コラボ → ドコモ光</li><li><b>転用</b>:フレッツ光 → ドコモ光</li><li><b>新規・奪還</b>:新規や他社独自回線から</li><li><b>タイプC</b>:ケーブルテレビ事業者の回線</li></ul></div>'+
+'<p class="note">回答履歴はこの端末のブラウザに保存されます。料金・キャンペーン・条件は変更されるため、実務では必ず公式の最新情報を確認してください。</p>';
+app.querySelectorAll(".cat").forEach(function(b){b.onclick=function(){start(b.dataset.c)}})}
+function start(id){var l=Q.filter(function(q){return id==="all"||q[0]===id});st={list:shuf(l).slice(0,id==="all"?10:l.length),i:0,c:0,sel:null};quiz()}
+function quiz(){nav("quiz");if(!st.list.length){app.innerHTML='<h1>クイズ</h1><p class="sub">カテゴリーを選んでください。</p><button class="btn" id="h">ホームへ</button>';$("#h").onclick=home;return}
+if(st.i>=st.list.length){return result()}
+var q=st.list[st.i],ord=st.ord&&st.ordI===st.i?st.ord:(st.ord=shuf([0,1,2,3]),st.ordI=st.i,st.ord);
+var h='<div class="bar"><i style="width:'+(st.i/st.list.length*100)+'%"></i></div><p class="sub" style="margin-top:8px">'+(st.i+1)+' / '+st.list.length+'</p><div class="q">'+esc(q[1])+'</div>';
+ord.forEach(function(o){var cl="ch";if(st.sel!==null){if(o===q[3])cl+=" ok";else if(o===st.sel)cl+=" ng"}h+='<button class="'+cl+'" data-o="'+o+'">'+esc(q[2][o])+'</button>'});
+if(st.sel!==null){h+='<div class="ex"><b>'+(st.sel===q[3]?"⭕ 正解":"❌ 不正解")+'</b><br>'+esc(q[4])+'</div><button class="btn" id="nx">'+(st.i+1>=st.list.length?"結果を見る":"次の問題へ")+'</button>'}
+app.innerHTML=h;
+app.querySelectorAll(".ch").forEach(function(b){b.onclick=function(){if(st.sel!==null)return;st.sel=+b.dataset.o;S.n++;if(st.sel===q[3]){S.c++;st.c++}save();quiz()}});
+var nx=$("#nx");if(nx)nx.onclick=function(){st.i++;st.sel=null;quiz()}}
+function result(){var p=Math.round(st.c/st.list.length*100);
+app.innerHTML='<h1>結果</h1><div class="big">'+st.c+' / '+st.list.length+'</div><p class="sub" style="text-align:center">正答率 '+p+'% ・ ランク '+rank()+'</p><button class="btn" id="re">もう一度</button><button class="btn g" id="hm">ホームへ</button>';
+$("#re").onclick=function(){st={list:shuf(st.list),i:0,c:0,sel:null};quiz()};$("#hm").onclick=home}
+function info(){nav("info");app.innerHTML='<h1>公式情報</h1><p class="sub">案内の前に、料金・提供条件・キャンペーンを一次情報で確認しましょう。</p>'+
+'<a class="lk" href="https://www.docomo.ne.jp/" target="_blank" rel="noopener">NTTドコモ公式サイト ↗</a>'+
+'<a class="lk" href="https://ahamo.com/" target="_blank" rel="noopener">ahamo公式サイト ↗</a>'+
+'<a class="lk" href="https://www.docomo.ne.jp/hikari/" target="_blank" rel="noopener">ドコモ光 ↗</a>'+
+'<button class="btn g" id="rs">学習履歴をリセット</button><p class="note">このアプリの問題は学習用の試作です。実際の案内には使わず、必ず公式情報を確認してください。</p>';
+$("#rs").onclick=function(){if(confirm("この端末の学習履歴を消します。よろしいですか?")){S={n:0,c:0};save();home()}}}
+document.querySelectorAll("nav button").forEach(function(b){b.onclick=function(){var v=b.dataset.v;v==="home"?home():v==="quiz"?quiz():info()}});
+home();
+</script>
+</body>
+</html>
